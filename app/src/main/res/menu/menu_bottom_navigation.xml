@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/item0"
+          android:orderInCategory="0"
+          android:icon="@drawable/ic_list_black_24dp"
+          android:title="Item0"/>
     <item android:id="@+id/item1"
-          android:icon="@drawable/ic_launcher_background"
+          android:orderInCategory="1"
+          android:icon="@drawable/ic_alarm_black_24dp"
           android:title="Item1"/>
     <item android:id="@+id/item2"
-          android:icon="@drawable/ic_launcher_background"
-          android:title="Item2"/>
-    <item android:id="@+id/item3"
-          android:icon="@drawable/ic_launcher_background"
+          android:orderInCategory="2"
+          android:icon="@drawable/ic_settings_black_24dp"
           android:title="Item3"/>
-    <item android:id="@+id/item4"
-          android:icon="@android:drawable/btn_star_big_off"
-          android:title="Item4"/>
-    <item android:id="@+id/item5"
-          android:icon="@drawable/ic_launcher_background"
-          android:title="Item5"/>
-
 </menu>
