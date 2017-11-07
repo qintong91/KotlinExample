@@ -1,6 +1,6 @@
 package com.example.qintong.kotlinexample.presenter
 
-public interface Presenter {
+interface Presenter {
     fun resume()
     fun pause()
     fun destory()
