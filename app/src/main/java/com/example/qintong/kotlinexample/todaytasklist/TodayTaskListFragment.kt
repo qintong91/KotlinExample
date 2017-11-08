@@ -1,4 +1,4 @@
-package com.example.qintong.kotlinexample.view
+package com.example.qintong.kotlinexample.todaytasklist
 
 import android.content.Context
 import android.os.Bundle
@@ -16,7 +16,25 @@ import com.example.qintong.kotlinexample.R
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ListFragment : Fragment() {
+class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
+    override val isActive: Boolean
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override fun showEmptyTaskError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTasksList() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setTitle(title: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setDescription(description: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
@@ -62,8 +80,8 @@ class ListFragment : Fragment() {
          * @return A new instance of fragment ListFragment.
          */
         // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): ListFragment {
-            val fragment = ListFragment()
+        fun newInstance(param1: String, param2: String): TodayTaskListFragment {
+            val fragment = TodayTaskListFragment()
             val args = Bundle()
             args.putString(ARG_PARAM1, param1)
             args.putString(ARG_PARAM2, param2)
