@@ -5,19 +5,19 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-
 import android.util.Log
 import com.example.qintong.kotlinexample.R
-import com.example.qintong.kotlinexample.todaytasklist.ListFragment
+import com.example.qintong.kotlinexample.todaytasklist.TodayTaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
-    private var fragmentList = ArrayList<Fragment>()
+    val fragments   = arrayOf(
+        TodayTaskListFragment.newInstance("11", "12"),
+        ClockFragment.newInstance("21", "22"),
+        SettingFragment.newInstance("31", "32"))
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentList.add(0, ListFragment.newInstance("11", "12"))
-        fragmentList.add(1, ClockFragment.newInstance("21", "22"))
-        fragmentList.add(2, SettingFragment.newInstance("31", "32"))
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,11 +32,11 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     inner class HomeFragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
-            return fragmentList[position]
+            return fragments[position]
         }
 
         override fun getCount(): Int {
-            return fragmentList.size
+            return fragments.size
         }
     }
 

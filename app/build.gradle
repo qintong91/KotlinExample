@@ -22,10 +22,10 @@ android {
 
     sourceSets {
         String mockDir = 'src/mock/java'
-        main {
+        androidTest {
             java.srcDir mockDir
         }
-        androidTest {
+        main {
             java.srcDir mockDir
         }
     }

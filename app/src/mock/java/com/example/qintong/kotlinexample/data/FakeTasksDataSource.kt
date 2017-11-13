@@ -5,7 +5,14 @@ import com.example.qintong.kotlinexample.data.source.TasksDataSource
 import io.reactivex.Flowable
 
 
-class FakeTasksDataSource : TasksDataSource {
+class FakeTasksDataSource: TasksDataSource {
+
+    init {
+        saveTask(Task("1","title1",System.currentTimeMillis(),"des",false))
+        saveTask(Task("2","title2",System.currentTimeMillis(),"des",false))
+        saveTask(Task("3","title3",System.currentTimeMillis(),"des",false))
+    }
+
     override fun getTasks(): Flowable<List<Task>> {
         val values = TASKS_SERVICE_DATA.values
         return Flowable.fromIterable<Task>(values).toList().toFlowable()

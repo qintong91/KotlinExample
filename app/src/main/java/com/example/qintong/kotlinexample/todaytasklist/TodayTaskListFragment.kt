@@ -1,12 +1,14 @@
 package com.example.qintong.kotlinexample.todaytasklist
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.qintong.kotlinexample.R
+import com.example.qintong.kotlinexample.data.Task
+import kotlinx.android.synthetic.main.fragment_today_task_list.*
 
 /**
  * A simple [Fragment] subclass.
@@ -17,29 +19,19 @@ import com.example.qintong.kotlinexample.R
  * create an instance of this fragment.
  */
 class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
-    override val isActive: Boolean
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
 
-    override fun showEmptyTaskError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showTasksList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun setTitle(title: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun setDescription(description: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     // TODO: Rename and change types of parameters
     private var mParam1: String? = null
     private var mParam2: String? = null
 
+    val mAdapter : TodayTaskListAdapter by lazy {
+        TodayTaskListAdapter()
+    }
+
+    val mPresenter : TodayTaskListPresenter by lazy {
+        TodayTaskListPresenter(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +43,19 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater!!.inflate(R.layout.fragment_list, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_today_task_list, container, false)
+        return view
     }
 
+    override fun onStart() {
+        list.layoutManager = LinearLayoutManager(activity)
+        list.adapter = mAdapter
+        super.onStart()
+    }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
+    override fun onResume() {
+        mPresenter.subscribe()
+        super.onResume()
     }
 
     override fun onDetach() {
@@ -89,4 +86,24 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
             return fragment
         }
     }
+
+    override val isActive: Boolean
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+    override fun showEmptyTaskError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTasks(list: List<Task>) {
+        mAdapter.tasksList = list
+    }
+
+    override fun setTitle(title: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setDescription(description: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }// Required empty public constructor

@@ -12,7 +12,7 @@ interface TodayTaskListContract {
 
         fun showEmptyTaskError()
 
-        fun showTasksList()
+        fun showTasks(list: List<Task>)
 
         fun setTitle(title: String)
 
