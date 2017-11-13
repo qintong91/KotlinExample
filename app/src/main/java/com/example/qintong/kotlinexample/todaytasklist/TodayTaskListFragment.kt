@@ -1,14 +1,18 @@
 package com.example.qintong.kotlinexample.todaytasklist
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.data.Task
 import kotlinx.android.synthetic.main.fragment_today_task_list.*
+
+
 
 /**
  * A simple [Fragment] subclass.
@@ -48,6 +52,7 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
     }
 
     override fun onStart() {
+        list.addItemDecoration(SpaceItemDecoration(24))
         list.layoutManager = LinearLayoutManager(activity)
         list.adapter = mAdapter
         super.onStart()
@@ -104,6 +109,14 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
 
     override fun setDescription(description: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    inner class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+
+        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+            if (parent.getChildPosition(view) != 0)
+                outRect.top = space
+        }
     }
 
 }// Required empty public constructor

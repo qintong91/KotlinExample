@@ -6,9 +6,12 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.util.Log
+import android.view.Menu
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.todaytasklist.TodayTaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 
 class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
@@ -28,6 +31,12 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         }
         viewPager.adapter = HomeFragmentAdapter(supportFragmentManager)
         viewPager.addOnPageChangeListener(this)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_activity_actions, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     inner class HomeFragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
