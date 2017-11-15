@@ -8,4 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ActivityDialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/ActivityWindowAnimations</item>
+    </style>
+
+    <style name="ActivityWindowAnimations">
+        <item name="android:taskToBackEnterAnimation">@anim/window_enter</item>
+        <item name="android:taskToBackExitAnimation">@anim/window_exit</item>
+    </style>
+
 </resources>

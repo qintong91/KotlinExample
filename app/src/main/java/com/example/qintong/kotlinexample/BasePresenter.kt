@@ -13,5 +13,5 @@ interface BasePresenter<T> {
     /**
      * Drops the reference to the view when destroyed
      */
-    fun dropView()
+    fun unsubscribe()
 }

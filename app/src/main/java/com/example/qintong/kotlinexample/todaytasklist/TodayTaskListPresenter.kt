@@ -8,6 +8,10 @@ import io.reactivex.schedulers.Schedulers.io
 import io.reactivex.Flowable
 import java.util.Locale.filter
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers.io
+import com.oracle.jrockit.jfr.FlightRecorder.isActive
+
+
 
 
 
@@ -15,9 +19,21 @@ import io.reactivex.disposables.CompositeDisposable
 class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListContract.Presenter {
     private val mView: TodayTaskListContract.View = view
     private val mTasksRepository: TasksDataSource  = FakeTasksDataSource.Companion.instance;
-    private val mCompositeDisposable: CompositeDisposable? = CompositeDisposable()
+    private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun subscribe() {
+        loadTasks(true)
+    }
+
+    override fun unsubscribe() {
+        mCompositeDisposable.clear()
+    }
+
+    override fun result(requestCode: Int, resultCode: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun loadTasks(forceUpdate: Boolean) {
         val disposable = mTasksRepository
                 .getTasks()
                 .subscribe(
@@ -27,19 +43,7 @@ class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListCo
                             Log.d("qintong", "size:"+tasks.size)
                             mView.showTasks(tasks)
                         })
-        mCompositeDisposable?.add(disposable)
-    }
-
-    override fun dropView() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun result(requestCode: Int, resultCode: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun loadTasks(forceUpdate: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCompositeDisposable.add(disposable)
     }
 
     override fun addNewTask() {
@@ -61,5 +65,4 @@ class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListCo
     override fun clearCompletedTasks() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
