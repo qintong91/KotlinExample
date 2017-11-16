@@ -9,12 +9,6 @@ import io.reactivex.Flowable
 import java.util.Locale.filter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers.io
-import com.oracle.jrockit.jfr.FlightRecorder.isActive
-
-
-
-
-
 
 class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListContract.Presenter {
     private val mView: TodayTaskListContract.View = view

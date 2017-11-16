@@ -13,7 +13,6 @@ import com.example.qintong.kotlinexample.data.Task
 import kotlinx.android.synthetic.main.fragment_today_task_list.*
 
 
-
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
@@ -38,14 +37,17 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_today_task_list, container, false)
-        return view
+        return inflater!!.inflate(R.layout.fragment_today_task_list, container, false)
     }
 
-    override fun onStart() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         list.addItemDecoration(SpaceItemDecoration(24))
         list.layoutManager = LinearLayoutManager(activity)
         list.adapter = mAdapter
+    }
+
+    override fun onStart() {
         super.onStart()
     }
 
