@@ -2,17 +2,16 @@ package com.example.qintong.kotlinexample.todaytasklist
 
 import android.util.Log
 import com.example.qintong.kotlinexample.data.Task
-import com.example.qintong.kotlinexample.data.FakeTasksDataSource
 import com.example.qintong.kotlinexample.data.source.TasksDataSource
-import io.reactivex.schedulers.Schedulers.io
-import io.reactivex.Flowable
-import java.util.Locale.filter
+import com.example.qintong.kotlinexample.di.ActivityScope
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers.io
+import javax.inject.Inject
 
-class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListContract.Presenter {
+@ActivityScope
+class TodayTaskListPresenter @Inject constructor(view: TodayTaskListContract.View) : TodayTaskListContract.Presenter {
     private val mView: TodayTaskListContract.View = view
-    private val mTasksRepository: TasksDataSource  = FakeTasksDataSource.Companion.instance;
+    @Inject
+    lateinit var mTasksRepository: TasksDataSource
     private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun subscribe() {
@@ -49,7 +48,7 @@ class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListCo
     }
 
     override fun completeTask(completedTask: Task) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mTasksRepository.completeTask(completedTask)
     }
 
     override fun activateTask(activeTask: Task) {

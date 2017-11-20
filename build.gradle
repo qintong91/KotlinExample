@@ -5,6 +5,7 @@ buildscript {
     ext.anko_version = '0.10.2'
     ext.rxjavaVersion = '2.1.6'
     ext.rxandroidVersion = '2.0.1'
+    ext.daggerVersion = '2.11'
 
     repositories {
         google()

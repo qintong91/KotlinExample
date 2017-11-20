@@ -3,15 +3,18 @@ package com.example.qintong.kotlinexample.data
 import android.support.annotation.VisibleForTesting
 import com.example.qintong.kotlinexample.data.source.TasksDataSource
 import io.reactivex.Flowable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class FakeTasksDataSource: TasksDataSource {
+@Singleton
+class FakeTasksDataSource @Inject constructor(): TasksDataSource {
 
     init {
         saveTask(Task("1","title1",System.currentTimeMillis(),"des",false))
         saveTask(Task("2","title2",System.currentTimeMillis(),"des",false))
         saveTask(Task("3","title3",System.currentTimeMillis(),"des",false))
     }
+
 
     override fun getTasks(): Flowable<List<Task>> {
         val values = TASKS_SERVICE_DATA.values

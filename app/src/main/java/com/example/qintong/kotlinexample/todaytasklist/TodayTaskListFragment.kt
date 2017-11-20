@@ -10,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.data.Task
+import dagger.android.support.DaggerFragment;
 import kotlinx.android.synthetic.main.fragment_today_task_list.*
+import javax.inject.Inject
 
 
 /**
@@ -21,11 +23,20 @@ import kotlinx.android.synthetic.main.fragment_today_task_list.*
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
+class TodayTaskListFragment @Inject constructor(): DaggerFragment(), TodayTaskListContract.View{
 
-    val mAdapter : TodayTaskListAdapter by lazy {
-        TodayTaskListAdapter()
-    }
+    @Inject
+    lateinit var mAdapter: TodayTaskListAdapter
+
+/*    val mAdapter: TodayTaskListAdapter by lazy {
+        TodayTaskListAdapter({ task ->
+            Log.d(TAG, "click:" + task.title)
+        },
+        {
+            task -> Log.d(TAG, "done click:" + task.title)
+            mPresenter.completeTask(task)
+        })
+    }*/
 
     val mPresenter : TodayTaskListPresenter by lazy {
         TodayTaskListPresenter(this)
@@ -35,9 +46,9 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_today_task_list, container, false)
+        return inflater.inflate(R.layout.fragment_today_task_list, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,23 +72,10 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
     }
 
     companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         fun newInstance(): TodayTaskListFragment {
             return TodayTaskListFragment()
          }
+        val TAG = "TodayTaskListFragment"
     }
 
     override val isActive: Boolean
