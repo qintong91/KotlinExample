@@ -3,9 +3,11 @@ package com.example.qintong.kotlinexample.data
 import android.support.annotation.VisibleForTesting
 import com.example.qintong.kotlinexample.data.source.TasksDataSource
 import io.reactivex.Flowable
+import javax.inject.Inject
+import javax.inject.Singleton
 
-
-class FakeTasksDataSource: TasksDataSource {
+@Singleton
+class FakeTasksDataSource @Inject constructor() : TasksDataSource {
 
     init {
         saveTask(Task("1","title1",System.currentTimeMillis(),"des",false))

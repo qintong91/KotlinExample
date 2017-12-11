@@ -1,6 +1,7 @@
 package com.example.qintong.kotlinexample.todaytasklist
 
 import android.util.Log
+import com.example.qintong.kotlinexample.TaskApplication
 import com.example.qintong.kotlinexample.data.Task
 import com.example.qintong.kotlinexample.data.FakeTasksDataSource
 import com.example.qintong.kotlinexample.data.source.TasksDataSource
@@ -9,13 +10,16 @@ import io.reactivex.Flowable
 import java.util.Locale.filter
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers.io
+import javax.inject.Inject
 
 class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListContract.Presenter {
     private val mView: TodayTaskListContract.View = view
-    private val mTasksRepository: TasksDataSource  = FakeTasksDataSource.Companion.instance;
+    @Inject
+    lateinit var mTasksRepository: FakeTasksDataSource
     private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun subscribe() {
+        TaskApplication.appComponent.inject(this)
         loadTasks(true)
     }
 
