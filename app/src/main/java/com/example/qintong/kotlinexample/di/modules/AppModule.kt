@@ -1,4 +1,4 @@
-package com.example.qintong.kotlinexample.di
+package com.example.qintong.kotlinexample.di.modules
 
 import android.app.Application
 import android.content.Context

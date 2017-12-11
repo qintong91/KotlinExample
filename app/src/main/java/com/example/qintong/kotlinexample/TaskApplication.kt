@@ -1,8 +1,8 @@
 package com.example.qintong.kotlinexample
 
 import android.app.Application
-import com.example.qintong.kotlinexample.di.AppComponent
-import com.example.qintong.kotlinexample.di.DaggerAppComponent
+import com.example.qintong.kotlinexample.di.components.AppComponent
+import com.example.qintong.kotlinexample.di.components.DaggerAppComponent
 
 class TaskApplication : Application() {
 

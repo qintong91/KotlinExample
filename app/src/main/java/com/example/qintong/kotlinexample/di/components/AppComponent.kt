@@ -1,6 +1,7 @@
-package com.example.qintong.kotlinexample.di
+package com.example.qintong.kotlinexample.di.components
 
 import com.example.qintong.kotlinexample.TaskApplication
+import com.example.qintong.kotlinexample.di.modules.AppModule
 import com.example.qintong.kotlinexample.todaytasklist.TodayTaskListPresenter
 import dagger.BindsInstance
 import dagger.Component
@@ -13,6 +14,7 @@ interface AppComponent {
     // override fun inject(instance: AppComponent)
 
     fun inject (presenter : TodayTaskListPresenter)
+    fun plus(): ActivityComponent
 
     @Component.Builder
     interface Builder {
