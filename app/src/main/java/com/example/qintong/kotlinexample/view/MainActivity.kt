@@ -1,4 +1,4 @@
-package com.example.qintong.kotlinexample.navigation
+package com.example.qintong.kotlinexample.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,17 +12,14 @@ import android.view.MenuItem
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.createtask.CreateTaskActvity
 import com.example.qintong.kotlinexample.todaytasklist.TodayTaskListFragment
-import com.example.qintong.kotlinexample.view.BaseActivity
-import com.example.qintong.kotlinexample.view.ClockFragment
-import com.example.qintong.kotlinexample.view.SettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class NavigationActivity : BaseActivity(), ViewPager.OnPageChangeListener {
+class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     val fragments   = arrayOf(
         TodayTaskListFragment.newInstance(),
-            ClockFragment.newInstance("21", "22"),
-            SettingFragment.newInstance("31", "32"))
+        ClockFragment.newInstance("21", "22"),
+        SettingFragment.newInstance("31", "32"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
