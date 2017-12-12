@@ -8,10 +8,10 @@ interface BasePresenter<T> {
      *
      * @param view the view associated with this presenter
      */
-    fun subscribe()
+    fun takeView(view : T)
 
     /**
      * Drops the reference to the view when destroyed
      */
-    fun unsubscribe()
+    fun dropView()
 }

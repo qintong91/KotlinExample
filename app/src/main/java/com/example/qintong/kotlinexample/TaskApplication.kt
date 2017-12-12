@@ -17,6 +17,4 @@ class TaskApplication : Application() {
                 .application(this)
                 .build()
     }
-
-
 }

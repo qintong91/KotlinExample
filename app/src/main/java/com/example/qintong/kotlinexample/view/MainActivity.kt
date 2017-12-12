@@ -6,24 +6,37 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.createtask.CreateTaskActvity
+import com.example.qintong.kotlinexample.di.HasComponent
+import com.example.qintong.kotlinexample.di.PerActivity
+import com.example.qintong.kotlinexample.di.components.ActivityComponent
+import com.example.qintong.kotlinexample.extensions.getAppComponent
 import com.example.qintong.kotlinexample.todaytasklist.TodayTaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
+@PerActivity
+class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, HasComponent<ActivityComponent> {
 
-class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
-    val fragments   = arrayOf(
-        TodayTaskListFragment.newInstance(),
-        ClockFragment.newInstance("21", "22"),
-        SettingFragment.newInstance("31", "32"))
+    private val mActivityComponent by lazy {
+        getAppComponent().activityComponent()
+    }
+
+    @Inject
+    lateinit var mTodayTaskListFragment : TodayTaskListFragment
+    var mClockFragment  = ClockFragment.newInstance("21", "22")
+    var mSettingFragment = SettingFragment.newInstance("31", "32")
+
+    override fun getComponent(): ActivityComponent {
+        return mActivityComponent
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+        mActivityComponent.inject(this)
         setContentView(R.layout.activity_main)
         nav.setOnNavigationItemSelectedListener {
             viewPager.currentItem = it.order
@@ -40,7 +53,6 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        Log.d("qintong", "onOptionsItemSelected" + item.toString())
         val intent = Intent(this, CreateTaskActvity::class.java)
         startActivity(intent)
         return super.onOptionsItemSelected(item)
@@ -48,11 +60,16 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     inner class HomeFragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment {
-            return fragments[position]
+            return when (position) {
+                0 -> mTodayTaskListFragment
+                1 -> mClockFragment
+                2 -> mSettingFragment
+                else -> throw IllegalArgumentException("Invalid Fragment")
+            }
         }
 
         override fun getCount(): Int {
-            return fragments.size
+            return 3
         }
     }
 

@@ -1,29 +1,20 @@
 package com.example.qintong.kotlinexample.todaytasklist
 
-import android.util.Log
-import com.example.qintong.kotlinexample.TaskApplication
 import com.example.qintong.kotlinexample.data.Task
-import com.example.qintong.kotlinexample.data.FakeTasksDataSource
 import com.example.qintong.kotlinexample.data.source.TasksDataSource
-import io.reactivex.schedulers.Schedulers.io
-import io.reactivex.Flowable
-import java.util.Locale.filter
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers.io
 import javax.inject.Inject
 
-class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListContract.Presenter {
-    private val mView: TodayTaskListContract.View = view
-    @Inject
-    lateinit var mTasksRepository: FakeTasksDataSource
-    private val mCompositeDisposable: CompositeDisposable = CompositeDisposable()
+class TodayTaskListPresenter @Inject constructor(val mTasksRepository: TasksDataSource) : TodayTaskListContract.Presenter {
+    lateinit var mView: TodayTaskListContract.View
+    private val mCompositeDisposable = CompositeDisposable()
 
-    override fun subscribe() {
-        TaskApplication.appComponent.inject(this)
+    override fun takeView(view : TodayTaskListContract.View) {
+        mView = view
         loadTasks(true)
     }
 
-    override fun unsubscribe() {
+    override fun dropView() {
         mCompositeDisposable.clear()
     }
 
@@ -37,8 +28,6 @@ class TodayTaskListPresenter(view: TodayTaskListContract.View) : TodayTaskListCo
                 .subscribe(
                         // onNext
                         { tasks ->
-                            //processTasks(tasks)
-                            Log.d("qintong", "size:"+tasks.size)
                             mView.showTasks(tasks)
                         })
         mCompositeDisposable.add(disposable)

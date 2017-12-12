@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.qintong.kotlinexample;
+package com.example.qintong.kotlinexample.view;
 
 public interface BaseView<T> {
 

@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.data.Task
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class TodayTaskListAdapter : RecyclerView.Adapter<TodayTaskListAdapter.TaskViewHolder>() {
+class TodayTaskListAdapter @Inject constructor(): RecyclerView.Adapter<TodayTaskListAdapter.TaskViewHolder>() {
     var tasksList: List<Task> by Delegates.observable(listOf()) {
-        prop, old, new ->
+        _, _, _ ->
         notifyDataSetChanged()
     }
 
@@ -22,7 +23,7 @@ class TodayTaskListAdapter : RecyclerView.Adapter<TodayTaskListAdapter.TaskViewH
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.name.setText(tasksList[position].title)
+        holder.name.text = tasksList[position].title
     }
 
     override fun getItemCount(): Int {

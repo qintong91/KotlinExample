@@ -1,8 +1,8 @@
 package com.example.qintong.kotlinexample.todaytasklist
 
 import com.example.qintong.kotlinexample.BasePresenter
-import com.example.qintong.kotlinexample.BaseView
 import com.example.qintong.kotlinexample.data.Task
+import com.example.qintong.kotlinexample.view.BaseView
 
 
 interface TodayTaskListContract {

@@ -88,17 +88,6 @@ class FakeTasksDataSource @Inject constructor() : TasksDataSource {
     }
 
     companion object {
-
-        private var INSTANCE: FakeTasksDataSource? = null
-
         private val TASKS_SERVICE_DATA = LinkedHashMap<String, Task>()
-
-        val instance: FakeTasksDataSource
-            get() {
-                if (INSTANCE == null) {
-                    INSTANCE = FakeTasksDataSource()
-                }
-                return INSTANCE as FakeTasksDataSource
-            }
     }
 }

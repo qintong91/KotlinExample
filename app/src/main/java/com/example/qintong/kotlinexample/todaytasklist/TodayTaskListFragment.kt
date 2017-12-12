@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.data.Task
+import com.example.qintong.kotlinexample.di.PerActivity
+import com.example.qintong.kotlinexample.view.BaseFragment
 import kotlinx.android.synthetic.main.fragment_today_task_list.*
+import javax.inject.Inject
 
 
 /**
@@ -21,15 +24,14 @@ import kotlinx.android.synthetic.main.fragment_today_task_list.*
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
+@PerActivity
+class TodayTaskListFragment @Inject constructor(): BaseFragment(), TodayTaskListContract.View{
 
-    val mAdapter : TodayTaskListAdapter by lazy {
-        TodayTaskListAdapter()
-    }
+    @Inject
+    lateinit var mListAdapter : TodayTaskListAdapter
 
-    val mPresenter : TodayTaskListPresenter by lazy {
-        TodayTaskListPresenter(this)
-    }
+    @Inject
+    lateinit var mPresenter : TodayTaskListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,9 +44,7 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        list.addItemDecoration(SpaceItemDecoration(24))
-        list.layoutManager = LinearLayoutManager(activity)
-        list.adapter = mAdapter
+        initListReyclerView()
     }
 
     override fun onStart() {
@@ -52,32 +52,17 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
     }
 
     override fun onResume() {
-        mPresenter.subscribe()
+        mPresenter.takeView(this)
         super.onResume()
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onDestroy() {
+        mPresenter.dropView()
+        super.onDestroy()
     }
 
-    companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        fun newInstance(): TodayTaskListFragment {
-            return TodayTaskListFragment()
-         }
+    override fun showTasks(list: List<Task>) {
+        mListAdapter.tasksList = list
     }
 
     override val isActive: Boolean
@@ -85,10 +70,6 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
 
     override fun showEmptyTaskError() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showTasks(list: List<Task>) {
-        mAdapter.tasksList = list
     }
 
     override fun setTitle(title: String) {
@@ -99,12 +80,16 @@ class TodayTaskListFragment : Fragment(), TodayTaskListContract.View{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    inner class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
+    fun initListReyclerView() {
+        list.addItemDecoration(SpaceItemDecoration(24))
+        list.layoutManager = LinearLayoutManager(activity)
+        list.adapter = mListAdapter
+    }
 
+    inner class SpaceItemDecoration(private val space: Int) : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
             if (parent.getChildPosition(view) != 0)
                 outRect.top = space
         }
     }
-
 }// Required empty public constructor
