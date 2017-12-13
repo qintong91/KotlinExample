@@ -1,5 +1,6 @@
 package com.example.qintong.kotlinexample.extensions
 
+import android.widget.EditText
 import android.widget.TextView
 
 var TextView.textColor: Int
@@ -7,6 +8,6 @@ var TextView.textColor: Int
     set(v) = setTextColor(v)
 
 
-var TextView.text: CharSequence
+var EditText.editable: CharSequence
     get() = text
     set(v) = setText(v, TextView.BufferType.EDITABLE)

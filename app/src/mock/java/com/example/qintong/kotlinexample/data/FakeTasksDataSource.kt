@@ -10,9 +10,9 @@ import javax.inject.Singleton
 class FakeTasksDataSource @Inject constructor() : TasksDataSource {
 
     init {
-        saveTask(Task("1","title1",System.currentTimeMillis(),"des",false))
-        saveTask(Task("2","title2",System.currentTimeMillis(),"des",false))
-        saveTask(Task("3","title3",System.currentTimeMillis(),"des",false))
+        saveTask(Task("0","title1",System.currentTimeMillis(),"des",false))
+        saveTask(Task("1","title2",System.currentTimeMillis(),"des",false))
+        saveTask(Task("2","title3",System.currentTimeMillis(),"des",false))
     }
 
     override fun getTasks(): Flowable<List<Task>> {
@@ -27,6 +27,10 @@ class FakeTasksDataSource @Inject constructor() : TasksDataSource {
 
     override fun saveTask(task: Task) {
         TASKS_SERVICE_DATA.put(task.id, task)
+    }
+
+    override fun saveTask(name: String, description : String) {
+        saveTask(Task(TASKS_SERVICE_DATA.size.toString(),name,System.currentTimeMillis(),description,false))
     }
 
     override fun completeTask(task: Task) {

@@ -12,6 +12,8 @@ interface TasksDataSource {
 
     fun saveTask(task: Task)
 
+    fun saveTask(name: String, description: String)
+
     fun completeTask(task: Task)
 
     fun completeTask(taskId: String)

@@ -9,6 +9,8 @@ interface CreateTaskContract {
         fun setTitle(title: String)
 
         fun setDescription(description: String)
+
+        fun onTaskCreated(title: String)
     }
 
     interface Presenter : BasePresenter<View> {
