@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import com.example.qintong.kotlinexample.R
-import com.example.qintong.kotlinexample.createtask.CreateTaskActvity
+import com.example.qintong.kotlinexample.createtask.CreateTaskActivity
 import com.example.qintong.kotlinexample.di.HasComponent
 import com.example.qintong.kotlinexample.di.PerActivity
 import com.example.qintong.kotlinexample.di.components.ActivityComponent
@@ -53,7 +53,7 @@ class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, HasComponen
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val intent = Intent(this, CreateTaskActvity::class.java)
+        val intent = Intent(this, CreateTaskActivity::class.java)
         startActivity(intent)
         return super.onOptionsItemSelected(item)
     }
