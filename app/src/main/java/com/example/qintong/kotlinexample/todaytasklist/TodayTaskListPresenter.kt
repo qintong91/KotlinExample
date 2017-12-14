@@ -5,7 +5,8 @@ import com.example.qintong.kotlinexample.data.source.TasksDataSource
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class TodayTaskListPresenter @Inject constructor(val mTasksRepository: TasksDataSource) : TodayTaskListContract.Presenter {
+class TodayTaskListPresenter @Inject constructor(val mTasksDataSource: TasksDataSource) : TodayTaskListContract.Presenter {
+
     lateinit var mView: TodayTaskListContract.View
     private val mCompositeDisposable = CompositeDisposable()
 
@@ -23,7 +24,7 @@ class TodayTaskListPresenter @Inject constructor(val mTasksRepository: TasksData
     }
 
     override fun loadTasks(forceUpdate: Boolean) {
-        val disposable = mTasksRepository
+        val disposable = mTasksDataSource
                 .getTasks()
                 .subscribe(
                         // onNext
@@ -42,6 +43,10 @@ class TodayTaskListPresenter @Inject constructor(val mTasksRepository: TasksData
     }
 
     override fun completeTask(completedTask: Task) {
+        mTasksDataSource.completeTask(completedTask)
+    }
+
+    override fun startTask(task: Task) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

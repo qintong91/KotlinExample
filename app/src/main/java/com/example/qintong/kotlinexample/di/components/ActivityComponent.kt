@@ -3,6 +3,7 @@ package com.example.qintong.kotlinexample.di.components
 import com.example.qintong.kotlinexample.createtask.CreateTaskActivity
 import com.example.qintong.kotlinexample.di.PerActivity
 import com.example.qintong.kotlinexample.di.modules.ActivityModule
+import com.example.qintong.kotlinexample.timer.TimerActivity
 import com.example.qintong.kotlinexample.view.MainActivity
 import dagger.Subcomponent
 
@@ -11,4 +12,5 @@ import dagger.Subcomponent
 interface ActivityComponent {
     fun inject (activity: MainActivity)
     fun inject (activity: CreateTaskActivity)
+    fun inject (activity: TimerActivity)
 }

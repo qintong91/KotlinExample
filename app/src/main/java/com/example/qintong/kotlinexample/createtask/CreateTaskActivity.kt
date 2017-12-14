@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.qintong.kotlinexample.R
+import com.example.qintong.kotlinexample.di.components.ActivityComponent
 import com.example.qintong.kotlinexample.extensions.editable
 import com.example.qintong.kotlinexample.extensions.getAppComponent
 import com.example.qintong.kotlinexample.view.BaseActivity
@@ -14,6 +15,10 @@ class CreateTaskActivity : BaseActivity(), CreateTaskContract.View {
 
     @Inject
     lateinit var mPresenter : CreateTaskContract.Presenter
+
+    override fun inject(component: ActivityComponent) {
+        component.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

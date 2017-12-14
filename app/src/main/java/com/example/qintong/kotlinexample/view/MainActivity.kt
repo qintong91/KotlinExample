@@ -10,33 +10,26 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.createtask.CreateTaskActivity
-import com.example.qintong.kotlinexample.di.HasComponent
 import com.example.qintong.kotlinexample.di.PerActivity
 import com.example.qintong.kotlinexample.di.components.ActivityComponent
-import com.example.qintong.kotlinexample.extensions.getAppComponent
 import com.example.qintong.kotlinexample.todaytasklist.TodayTaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 @PerActivity
-class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener, HasComponent<ActivityComponent> {
-
-    private val mActivityComponent by lazy {
-        getAppComponent().activityComponent()
-    }
+class MainActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     @Inject
     lateinit var mTodayTaskListFragment : TodayTaskListFragment
     var mClockFragment  = ClockFragment.newInstance("21", "22")
     var mSettingFragment = SettingFragment.newInstance("31", "32")
 
-    override fun getComponent(): ActivityComponent {
-        return mActivityComponent
+    override fun inject(component: ActivityComponent) {
+        component.inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mActivityComponent.inject(this)
         setContentView(R.layout.activity_main)
         nav.setOnNavigationItemSelectedListener {
             viewPager.currentItem = it.order

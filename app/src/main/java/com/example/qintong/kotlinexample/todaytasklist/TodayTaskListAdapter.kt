@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.qintong.kotlinexample.R
 import com.example.qintong.kotlinexample.data.Task
-import javax.inject.Inject
 import kotlin.properties.Delegates
 
-class TodayTaskListAdapter @Inject constructor(): RecyclerView.Adapter<TodayTaskListAdapter.TaskViewHolder>() {
+class TodayTaskListAdapter (val mOnItemClickListener : OnItemClickListener)
+    : RecyclerView.Adapter<TodayTaskListAdapter.TaskViewHolder>() {
     var tasksList: List<Task> by Delegates.observable(listOf()) {
         _, _, _ ->
         notifyDataSetChanged()
@@ -30,15 +30,27 @@ class TodayTaskListAdapter @Inject constructor(): RecyclerView.Adapter<TodayTask
         return tasksList.size
     }
 
-    class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),View.OnClickListener {
+        override fun onClick(v: View?) {
+            mOnItemClickListener.onClick(tasksList[adapterPosition])
+        }
+
         val name by lazy {
             itemView.findViewById<TextView>(R.id.name)
+        }
+
+        init {
+            itemView.setOnClickListener(this)
         }
 
     }
 
     override fun getItemViewType(position: Int): Int {
         return 1
+    }
+
+    interface OnItemClickListener {
+        fun onClick(task : Task)
     }
 
 }

@@ -5,16 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="300dp"
+    android:background="@color/colorPrimary"
     android:layout_height="300dp"
     tools:context="com.example.qintong.kotlinexample.createtask.CreateTaskActivity">
-
-    <FrameLayout
-        android:id="@+id/message"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/name"

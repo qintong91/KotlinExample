@@ -6,7 +6,7 @@ import com.example.qintong.kotlinexample.view.BaseView
 
 
 interface TodayTaskListContract {
-    interface View : BaseView<Presenter> {
+    interface View : BaseView {
 
         val isActive: Boolean
 
@@ -32,6 +32,8 @@ interface TodayTaskListContract {
         fun completeTask(completedTask: Task)
 
         fun activateTask(activeTask: Task)
+
+        fun startTask(task : Task)
 
         fun clearCompletedTasks()
     }

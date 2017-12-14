@@ -16,6 +16,6 @@
 
 package com.example.qintong.kotlinexample.view;
 
-public interface BaseView<T> {
+public interface BaseView {
 
 }
